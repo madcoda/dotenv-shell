@@ -4,7 +4,7 @@ Use Dotenv in everything
 ## Install
 
 ```
-curl https://github.com/madcoda/dotenv-shell/raw/master/dotenv.sh > /usr/local/bin/dotenv
+curl https://raw.githubusercontent.com/madcoda/dotenv-shell/master/dotenv.sh > /usr/local/bin/dotenv
 chmod +x /usr/local/bin/dotenv
 ```
 
