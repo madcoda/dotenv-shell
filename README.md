@@ -7,7 +7,7 @@ Use Dotenv in everything
 ## Install
 
 ```
-curl https://raw.githubusercontent.com/dinhoabreu/dotenv-shell/improve_value/dotenv.sh > /usr/local/bin/dotenv
+curl https://raw.githubusercontent.com/madcoda/dotenv-shell/master/dotenv.sh > /usr/local/bin/dotenv
 chmod +x /usr/local/bin/dotenv
 ```
 
