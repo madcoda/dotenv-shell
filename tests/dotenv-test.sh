@@ -8,6 +8,7 @@ main() {
     # shellcheck disable=SC1091
     export TEST_EXISTING="expected"
     source ../dotenv.sh
+    echo "Testing blank line parsing: ok" # i.e. didn't crash
     assert_equal "$TEST_UNQUOTED" 'a=1 b=2 c=3' 'Testing unquoted'
     assert_equal "$TEST_SINGLE_QUOTED" '1 2 3 4' 'Testing single quoted'
     assert_equal "$TEST_DOUBLE_QUOTED" '1 2 3 4' 'Testing double quoted'
