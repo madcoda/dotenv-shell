@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dinhoabreu/dotenv-shell.svg?branch=improve_value)](https://travis-ci.org/dinhoabreu/dotenv-shell)
+[![Build Status](https://travis-ci.org/madcoda/dotenv-shell.svg?branch=improve_value)](https://travis-ci.org/madcoda/dotenv-shell)
 
 # dotenv-shell
 
