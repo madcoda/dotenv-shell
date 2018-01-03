@@ -70,5 +70,5 @@ fi
 
 # then run whatever commands you like
 if [ $# -gt 0 ]; then
-	exec "$@"
+	eval "$@"
 fi
