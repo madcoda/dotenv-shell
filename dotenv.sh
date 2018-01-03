@@ -52,14 +52,20 @@ export_envs() {
 			value=$(eval echo "$temp")
 			eval export "$key='$value'";
 		fi
-	done < .env
+	done < $DOTENV_FILE
 }
 
+if is_set "DOTENV_FILE"; then
+	log_verbose "Using $DOTENV_FILE"
+else
+	DOTENV_FILE=.env
+fi
+
 # inject .env configs into the shell
-if [ -f .env ]; then
+if [ -f $DOTENV_FILE ]; then
 	export_envs
 else
-	echo '.env file not found' >&2
+	echo '$DOTENV_FILE file not found'
 fi
 
 # then run whatever commands you like
