@@ -16,6 +16,10 @@ chmod +x /usr/local/bin/dotenv
 ```sh
 # Run command
 dotenv run_my_command param1 param2
-# or Export to current shell
+
+# Export to current shell
 . dotenv
+
+# chain local secrets in .env with defaults in defaults.env
+dotenv DOTENV_FILE=defaults.env dotenv run_my_command param1 param2
 ```
