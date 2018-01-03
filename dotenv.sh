@@ -9,7 +9,7 @@ log_verbose() {
 
 is_set() {
 	eval val=\""\$$1"\"
-	if [ -z $val ]; then
+	if [ -z "$val" ]; then
 		return 1
 	else
 		return 0
