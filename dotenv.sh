@@ -3,7 +3,7 @@ set -e
 
 log_verbose() {
 	if [ "$VERBOSE" = 1 ]; then
-		echo "[dotenv.sh] $1"
+		echo "[dotenv.sh] $1" >&2
 	fi
 }
 
@@ -19,7 +19,7 @@ is_set() {
 is_comment() {
 	case "$1" in
 	\#*)
-		log_verbose "Skip: $1" >&2
+		log_verbose "Skip: $1"
 		return 0
 		;;
 	esac
@@ -29,7 +29,7 @@ is_comment() {
 is_blank() {
 	case "$1" in
 	'')
-		log_verbose "Skip: $1" >&2
+		log_verbose "Skip: $1"
 		return 0
 		;;
 	esac
@@ -47,7 +47,7 @@ export_envs() {
 		fi
 
 		if is_set "$key"; then
-			log_verbose "Existing: $key=$val" >&2
+			log_verbose "Existing: $key=$val"
 		else
 			value=$(eval echo "$temp")
 			eval export "$key='$value'";
