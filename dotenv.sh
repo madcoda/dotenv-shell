@@ -52,23 +52,27 @@ export_envs() {
 			value=$(eval echo "$temp")
 			eval export "$key='$value'";
 		fi
-	done < $DOTENV_FILE
+	done < $1
 }
 
-if is_set "DOTENV_FILE"; then
-	log_verbose "Using $DOTENV_FILE"
-else
-	DOTENV_FILE=.env
-fi
-
 # inject .env configs into the shell
-if [ -f $DOTENV_FILE ]; then
-	export_envs
+if [ -f ".env" ]; then
+	export_envs ".env"
 else
 	echo '$DOTENV_FILE file not found'
 fi
 
+# inject any defaults into the shell
+if is_set "DOTENV_DEFAULT"; then
+	log_verbose "Setting defaults via $DOTENV_DEFAULT"
+	if [ -f "$DOTENV_DEFAULT" ]; then
+		export_envs "$DOTENV_DEFAULT"
+	else
+		echo '$DOTENV_DEFAULT file not found'
+	fi
+fi
+
 # then run whatever commands you like
 if [ $# -gt 0 ]; then
-	eval "$@"
+	exec "$@"
 fi

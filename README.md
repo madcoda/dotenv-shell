@@ -21,5 +21,15 @@ dotenv run_my_command param1 param2
 . dotenv
 
 # chain local secrets in .env with defaults in defaults.env
-dotenv DOTENV_FILE=defaults.env dotenv run_my_command param1 param2
+DOTENV_DEFAULT=defaults.env dotenv run_my_command param1 param2
+```
+
+In a Makefile
+
+```
+# Just one command
+dotenv run_my_command
+
+# All commands
+SHELL := DOTENV_DEFAULT=default.env dotenv /bin/sh
 ```
