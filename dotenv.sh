@@ -1,12 +1,25 @@
 #!/bin/sh
 set -e
 
+log_verbose() {
+	if [ "$VERBOSE" = 1 ]; then
+		echo "[dotenv.sh] $1" >&2
+	fi
+}
+
+is_set() {
+	eval val=\""\$$1"\"
+	if [ -z "$val" ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
 is_comment() {
 	case "$1" in
 	\#*)
-		if [ "$VERBOSE" = 1 ]; then
-			echo "Skip: $1" >&2
-		fi
+		log_verbose "Skip: $1"
 		return 0
 		;;
 	esac
@@ -16,9 +29,7 @@ is_comment() {
 is_blank() {
 	case "$1" in
 	'')
-		if [ "$VERBOSE" = 1 ]; then
-			echo "Skip: $1" >&2
-		fi
+		log_verbose "Skip: $1"
 		return 0
 		;;
 	esac
@@ -30,27 +41,35 @@ export_envs() {
 		if is_comment "$key"; then
 			continue
 		fi
+
 		if is_blank "$key"; then
 			continue
 		fi
-		
-		eval val=\""\$$key"\"
-	    if [ -z $val ]; then
+
+		if is_set "$key"; then
+			log_verbose "Existing: $key=$val"
+		else
 			value=$(eval echo "$temp")
 			eval export "$key='$value'";
-	    else
-			if [ "$VERBOSE" = 1 ]; then
-				echo "Existing: $key=$val" >&2
-			fi       
-	    fi
-	done < .env
+		fi
+	done < $1
 }
 
 # inject .env configs into the shell
-if [ -f .env ]; then
-	export_envs
+if [ -f ".env" ]; then
+	export_envs ".env"
 else
-	echo '.env file not found' >&2
+	echo '$DOTENV_FILE file not found'
+fi
+
+# inject any defaults into the shell
+if is_set "DOTENV_DEFAULT"; then
+	log_verbose "Setting defaults via $DOTENV_DEFAULT"
+	if [ -f "$DOTENV_DEFAULT" ]; then
+		export_envs "$DOTENV_DEFAULT"
+	else
+		echo '$DOTENV_DEFAULT file not found'
+	fi
 fi
 
 # then run whatever commands you like
