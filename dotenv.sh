@@ -1,4 +1,12 @@
 #!/bin/sh
+# Filename:      dotenv
+# Purpose:       import environment variables from .env file and make available to other commands
+# Authors:       Jason Leung (jason@madcoda.com), multiple contributors (https://github.com/madcoda/dotenv-shell/graphs/contributors)
+# Bug-Reports:   see https://github.com/madcoda/dotenv-shell/issues
+# License:       This file is licensed under the MIT License (MIT).
+################################################################################
+
+
 set -e
 
 log_verbose() {
