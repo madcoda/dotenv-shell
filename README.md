@@ -22,6 +22,12 @@ dotenv run_my_command param1 param2
 
 # chain local secrets in .env with defaults in defaults.env
 DOTENV_DEFAULT=defaults.env dotenv run_my_command param1 param2
+
+# change name of DOTENV_FILE
+DOTENV_FILE=prod.env dotenv run_my_command param1 param2
+
+# change name of DOTENV_FILE and use defaults
+DOTENV_FILE=prod.env DOTENV_DEFAULT=defaults.env dotenv run_my_command param1 param2
 ```
 
 In a Makefile
