@@ -17,7 +17,7 @@ log_verbose() {
 
 is_set() {
 	eval val=\""\$$1"\"
-	if [ -z "$val" ]; then
+	if [ -z "$(eval "echo \$$1")" ]; then
 		return 1
 	else
 		return 0
