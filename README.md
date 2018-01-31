@@ -33,3 +33,19 @@ dotenv run_my_command
 # All commands
 SHELL := DOTENV_DEFAULT=default.env dotenv /bin/sh
 ```
+
+## Tests
+
+```
+$ bash tests/dotenv-test.sh
+Testing blank line parsing: ok
+Testing unquoted: ok
+Testing single quoted: ok
+Testing double quoted: ok
+Testing interpolation: ok
+Testing preservation of existing variables: ok
+Testing parsing of last line: ok
+Test loading variables from default.env file: ok
+Test .env variables override variables from default.env file: ok
+$
+```
