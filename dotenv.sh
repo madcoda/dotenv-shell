@@ -17,7 +17,7 @@ log_verbose() {
 
 is_set() {
 	eval val=\""\$$1"\"
-	if [ -z "$val" ]; then
+	if [ -z "$(eval "echo \$$1")" ]; then
 		return 1
 	else
 		return 0
@@ -63,11 +63,17 @@ export_envs() {
 	done < $1
 }
 
-# inject .env configs into the shell
-if [ -f ".env" ]; then
-	export_envs ".env"
+if is_set "DOTENV_FILE"; then
+	log_verbose "Reading from $DOTENV_FILE"
 else
-	echo '$DOTENV_FILE file not found'
+	DOTENV_FILE=".env"
+fi
+
+# inject .env configs into the shell
+if [ -f "$DOTENV_FILE" ]; then
+	export_envs "$DOTENV_FILE"
+else
+	echo "$DOTENV_FILE file not found"
 fi
 
 # inject any defaults into the shell
