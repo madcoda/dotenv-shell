@@ -54,7 +54,12 @@ export_envs() {
 			continue
 		fi
 
-        value=$(eval echo "$temp")
+		# Strip any existing quotes
+		temp="${temp%[\'\"]}";
+		temp="${temp#[\'\"]}";
+		# Add new double quotes for interpolation
+		value=$(eval echo "\"$temp\"");
+		
         eval export "$key='$value'";
 	done < $1
 }
